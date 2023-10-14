@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -19,8 +18,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'gender',
+        'birth_date',
+        'education',
+        'major',
         'email',
-        'password',
     ];
 
     /**
@@ -42,4 +44,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Get the scores associated with the user.
+     *
+     * This defines a one-to-many relationship between User and Score.
+     * A user can have multiple scores.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function scores()
+    {
+        return $this->hasMany(Score::class);
+    }
 }
